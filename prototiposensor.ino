@@ -1,7 +1,7 @@
-/******************************************************************************/
-/*          Projeto: Protótipo Sensor para Estacionamento em Garagem          */
-/*                     PontoCanal - Ponto Makers                              */
-/******************************************************************************/
+/***************************************************************************/
+/*          Projeto: Protótipo Sensor de Proximidade                      */
+/*                     Gustavo Henrik                                     */
+/*************************************************************************/
 
 //Configuração de Distancia Mínima em centimetros
 const int distancia_amarela = 20; 
@@ -10,17 +10,17 @@ const int distancia_vermelha = 10;
 //Configurações de Portas do Arduino
 
 //Sensor
-const int TRIG = 3;
-const int ECHO = 2;
+const int TRIG = 6;
+const int ECHO = 7;
 
-//Demais componentes
-const int ledYellow = 6;
-const int ledGreen = 7;
-const int ledRed = 8;
-const int buzzer = 9;
+//Leds & Buzzer
+const int ledYellow = 8;
+const int ledGreen = 9;
+const int ledRed = 10
+const int buzzer = 11;
 
 
-// Variaveis para funcionamento do Buzzer
+// Variaveis do Buzzer
 float seno;
 int frequencia;
 
@@ -42,7 +42,7 @@ void setup() {
 }
 
 void loop() {
-  int distancia = sensor_morcego(TRIG,ECHO);
+  int distancia = sensor_us(TRIG,ECHO);
 
       digitalWrite(ledGreen, LOW);
       digitalWrite(ledYellow, LOW);
@@ -70,7 +70,7 @@ void loop() {
   
 }
 
-int sensor_morcego(int pinotrig,int pinoecho){
+int sensor_us(int pinotrig,int pinoecho){
   digitalWrite(pinotrig,LOW);
   delayMicroseconds(2);
   digitalWrite(pinotrig,HIGH);
@@ -80,11 +80,11 @@ int sensor_morcego(int pinotrig,int pinoecho){
   return pulseIn(pinoecho,HIGH)/58;
 }
 
-//Função para execução do Alarme Sonoro
+//Função do Alarme Sonoro
 void tocaBuzzer(){
  for(int x=0;x<180;x++){
   seno=(sin(x*3.1416/180));
-  frequencia = 200+(int(seno*1000));
+  frequencia = 1000+(int(seno*1000));
   tone(buzzer,frequencia);
   delay(2);
 }
